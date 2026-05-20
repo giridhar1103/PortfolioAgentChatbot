@@ -1,1 +1,126 @@
-# PortfolioAgentChatbot
+# Portfolio Agent Chatbot
+
+A production-ready portfolio assistant for Giridhar Achuthananda's personal site. It is built as a lean FastAPI service that streams Claude responses into a frontend chat widget and keeps the conversation focused on professional background, projects, skills, recruiting questions, and job-description fit.
+
+This is not a generic chatbot demo. It is a small agentic interface for a portfolio: a recruiter can ask about experience, paste a job description, or explore project depth, and the assistant responds with grounded answers from a curated system profile.
+
+## What It Does
+
+- Streams responses over Server-Sent Events for a smooth chat experience.
+- Uses a portfolio-specific system prompt with education, experience, projects, skills, contact context, and JD fit instructions.
+- Detects job descriptions and turns them into structured fit analysis.
+- Keeps a strict topic boundary so the assistant stays focused on Giridhar's professional profile.
+- Trims conversation history to control context size.
+- Runs behind Nginx with TLS, rate limiting, and systemd process supervision.
+
+## Why This Project Matters
+
+The goal is to make a personal portfolio feel interactive without turning it into a gimmick. The assistant acts like a guided technical resume: concise for casual visitors, deeper for recruiters, and practical when someone brings a real job description.
+
+It shows production habits that matter on a resume:
+
+- API design with FastAPI and Pydantic.
+- Streaming UX through SSE.
+- LLM integration with a controlled system prompt.
+- Deployment on a VPS with systemd and Nginx.
+- CORS, request limits, health checks, and environment-based secrets.
+
+## Architecture
+
+```text
+Portfolio frontend
+  |
+  | POST /chat with conversation history
+  v
+Nginx reverse proxy
+  |
+  | public: https://api.giriworks.com/chatbot/
+  | local:  http://127.0.0.1:8002/
+  v
+FastAPI chatbot service
+  |
+  | Anthropic Messages API stream
+  v
+Claude Haiku
+```
+
+## API
+
+Health check:
+
+```bash
+curl https://api.giriworks.com/chatbot/health
+```
+
+Chat request:
+
+```bash
+curl -N https://api.giriworks.com/chatbot/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"What kind of data projects has Giridhar built?"}]}'
+```
+
+Response format:
+
+```text
+data: {"text":"Giridhar has built"}
+data: {"text":" production-grade data systems..."}
+data: [DONE]
+```
+
+## Local Development
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+Set `ANTHROPIC_API_KEY` in `.env`, then run:
+
+```bash
+export $(grep -v '^#' .env | xargs)
+uvicorn app:app --host 127.0.0.1 --port 8002 --reload
+```
+
+Open:
+
+```text
+http://127.0.0.1:8002/health
+```
+
+## Environment Variables
+
+| Variable | Purpose |
+| --- | --- |
+| `ANTHROPIC_API_KEY` | Anthropic API key used by the backend. |
+| `FRONTEND_ORIGINS` | Comma-separated list of allowed browser origins for CORS. |
+
+## Repository Map
+
+```text
+.
+├── app.py
+├── system_prompt.py
+├── requirements.txt
+├── chatbot-api.service
+├── chatbot.nginx
+├── api.giriworks.com.nginx
+├── .env.example
+└── docs/
+    ├── API.md
+    ├── ARCHITECTURE.md
+    └── DEPLOYMENT.md
+```
+
+## Production Status
+
+The running VPS deployment uses:
+
+- Uvicorn on `127.0.0.1:8002`.
+- systemd unit `chatbot-api.service`.
+- Nginx route `https://api.giriworks.com/chatbot/`.
+- CORS limited to the production portfolio domains.
+
+`chatbot.env`, virtual environments, caches, and secrets are intentionally excluded from GitHub.
