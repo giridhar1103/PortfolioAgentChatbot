@@ -1,6 +1,6 @@
 # Portfolio Agent Chatbot
 
-A production-ready portfolio assistant for Giridhar Achuthananda's personal site. It is built as a lean FastAPI service that streams Claude responses into a frontend chat widget and keeps the conversation focused on professional background, projects, skills, recruiting questions, and job-description fit.
+A production-ready portfolio assistant template for a personal website. It is built as a lean FastAPI service that streams Claude responses into a frontend chat widget and keeps the conversation focused on professional background, projects, skills, recruiting questions, and job-description fit.
 
 This is not a generic chat demo. It is a focused portfolio interface: a recruiter can ask about experience, paste a job description, or explore project depth, and the assistant responds with grounded answers from a curated system profile.
 
@@ -9,7 +9,7 @@ This is not a generic chat demo. It is a focused portfolio interface: a recruite
 - Streams responses over Server-Sent Events for a smooth chat experience.
 - Uses a portfolio-specific system prompt with education, experience, projects, skills, contact context, and JD fit instructions.
 - Detects job descriptions and turns them into structured fit analysis.
-- Keeps a strict topic boundary so the assistant stays focused on Giridhar's professional profile.
+- Keeps a strict topic boundary so the assistant stays focused on the portfolio owner's professional profile.
 - Trims conversation history to control context size.
 - Runs behind Nginx with TLS, rate limiting, and systemd process supervision.
 
@@ -34,7 +34,7 @@ Portfolio frontend
   v
 Nginx reverse proxy
   |
-  | public: https://api.giriworks.com/chatbot/
+  | public: https://your-api-domain.com/chatbot/
   | local:  http://127.0.0.1:8002/
   v
 FastAPI chatbot service
@@ -49,21 +49,21 @@ Claude Haiku
 Health check:
 
 ```bash
-curl https://api.giriworks.com/chatbot/health
+curl https://your-api-domain.com/chatbot/health
 ```
 
 Chat request:
 
 ```bash
-curl -N https://api.giriworks.com/chatbot/chat \
+curl -N https://your-api-domain.com/chatbot/chat \
   -H "Content-Type: application/json" \
-  -d '{"messages":[{"role":"user","content":"What kind of data projects has Giridhar built?"}]}'
+  -d '{"messages":[{"role":"user","content":"What kind of projects has this person built?"}]}'
 ```
 
 Response format:
 
 ```text
-data: {"text":"Giridhar has built"}
+data: {"text":"They have built"}
 data: {"text":" production-grade data systems..."}
 data: [DONE]
 ```
@@ -106,7 +106,7 @@ http://127.0.0.1:8002/health
 ├── requirements.txt
 ├── chatbot-api.service
 ├── chatbot.nginx
-├── api.giriworks.com.nginx
+├── api.example.com.nginx
 ├── .env.example
 └── docs/
     ├── API.md
@@ -120,7 +120,7 @@ The running VPS deployment uses:
 
 - Uvicorn on `127.0.0.1:8002`.
 - systemd unit `chatbot-api.service`.
-- Nginx route `https://api.giriworks.com/chatbot/`.
+- Nginx route `https://your-api-domain.com/chatbot/`.
 - CORS limited to the production portfolio domains.
 
 `chatbot.env`, virtual environments, caches, and secrets are intentionally excluded from GitHub.
