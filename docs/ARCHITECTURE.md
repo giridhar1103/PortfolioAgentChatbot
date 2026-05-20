@@ -31,14 +31,14 @@ Frontend appends tokens to the assistant bubble
 | `system_prompt.py` | Portfolio knowledge base and behavior policy for the assistant. |
 | `requirements.txt` | Runtime dependencies. |
 | `chatbot-api.service` | systemd process definition for production. |
-| `api.giriworks.com.nginx` | Active reverse-proxy shape for the shared API domain. |
+| `api.example.com.nginx` | Example reverse-proxy shape for a shared API domain. |
 | `chatbot.nginx` | Optional standalone subdomain config. |
 
 ## Behavior Policy
 
 The assistant follows a focused behavior policy. It does not browse, call tools, or pretend to perform actions. Instead, it applies a structured decision policy inside the system prompt:
 
-- Keep answers inside Giridhar's professional scope.
+- Keep answers inside the portfolio owner's professional scope.
 - Choose concise background summaries for broad questions.
 - Switch into fit-analysis mode when a user pastes a job description.
 - Match job requirements to relevant projects and experience.
@@ -58,7 +58,7 @@ systemd -> Uvicorn -> FastAPI -> Anthropic API
 Nginx terminates TLS and proxies public traffic:
 
 ```text
-https://api.giriworks.com/chatbot/* -> http://127.0.0.1:8002/*
+https://your-api-domain.com/chatbot/* -> http://127.0.0.1:8002/*
 ```
 
 Nginx also disables proxy buffering for the chatbot route so SSE tokens reach the browser immediately.
