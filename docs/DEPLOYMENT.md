@@ -17,7 +17,7 @@ Create `/root/chatbot/chatbot.env`:
 
 ```bash
 ANTHROPIC_API_KEY=your_key_here
-FRONTEND_ORIGINS=https://giriworks.com,https://www.giriworks.com
+FRONTEND_ORIGINS=https://your-domain.com,https://www.your-domain.com
 ```
 
 Keep this file on the server only. Do not commit it.
@@ -43,8 +43,8 @@ The service runs:
 For the current shared API domain:
 
 ```bash
-cp /root/chatbot/api.giriworks.com.nginx /etc/nginx/sites-available/api.giriworks.com
-ln -s /etc/nginx/sites-available/api.giriworks.com /etc/nginx/sites-enabled/api.giriworks.com
+cp /root/chatbot/api.example.com.nginx /etc/nginx/sites-available/your-api-domain.com
+ln -s /etc/nginx/sites-available/your-api-domain.com /etc/nginx/sites-enabled/your-api-domain.com
 nginx -t
 systemctl reload nginx
 ```
@@ -52,7 +52,7 @@ systemctl reload nginx
 The active route is:
 
 ```text
-https://api.giriworks.com/chatbot/
+https://your-api-domain.com/chatbot/
 ```
 
 For a dedicated chatbot subdomain, use `chatbot.nginx` and update DNS before running Certbot.
@@ -60,7 +60,7 @@ For a dedicated chatbot subdomain, use `chatbot.nginx` and update DNS before run
 ## 5. TLS
 
 ```bash
-certbot --nginx -d api.giriworks.com
+certbot --nginx -d your-api-domain.com
 nginx -t
 systemctl reload nginx
 ```
@@ -76,15 +76,15 @@ curl http://127.0.0.1:8002/health
 Public:
 
 ```bash
-curl https://api.giriworks.com/chatbot/health
+curl https://your-api-domain.com/chatbot/health
 ```
 
 Streaming chat:
 
 ```bash
-curl -N https://api.giriworks.com/chatbot/chat \
+curl -N https://your-api-domain.com/chatbot/chat \
   -H "Content-Type: application/json" \
-  -d '{"messages":[{"role":"user","content":"Give me a concise summary of Giridhar."}]}'
+  -d '{"messages":[{"role":"user","content":"Give me a concise portfolio summary."}]}'
 ```
 
 ## 7. Operational Notes
