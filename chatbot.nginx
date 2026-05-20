@@ -1,10 +1,10 @@
-# Copy to: /etc/nginx/sites-available/chat-api.giriworks.com
-# Symlink:  ln -s /etc/nginx/sites-available/chat-api.giriworks.com /etc/nginx/sites-enabled/
-# SSL:      certbot --nginx -d chat-api.giriworks.com
+# Copy to: /etc/nginx/sites-available/chat-api.your-domain.com
+# Symlink:  ln -s /etc/nginx/sites-available/chat-api.your-domain.com /etc/nginx/sites-enabled/
+# SSL:      certbot --nginx -d chat-api.your-domain.com
 # Reload:   nginx -t && systemctl reload nginx
 
 server {
-    server_name chat-api.giriworks.com;
+    server_name chat-api.your-domain.com;
 
     client_max_body_size 2m;
 
