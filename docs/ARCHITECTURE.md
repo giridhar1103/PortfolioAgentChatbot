@@ -34,9 +34,9 @@ Frontend appends tokens to the assistant bubble
 | `api.giriworks.com.nginx` | Active reverse-proxy shape for the shared API domain. |
 | `chatbot.nginx` | Optional standalone subdomain config. |
 
-## Agentic Behavior
+## Behavior Policy
 
-The assistant is agentic in a focused way. It does not browse, call tools, or pretend to perform actions. Instead, it applies a structured decision policy inside the system prompt:
+The assistant follows a focused behavior policy. It does not browse, call tools, or pretend to perform actions. Instead, it applies a structured decision policy inside the system prompt:
 
 - Keep answers inside Giridhar's professional scope.
 - Choose concise background summaries for broad questions.
