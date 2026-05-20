@@ -2,7 +2,7 @@
 
 A production-ready portfolio assistant for Giridhar Achuthananda's personal site. It is built as a lean FastAPI service that streams Claude responses into a frontend chat widget and keeps the conversation focused on professional background, projects, skills, recruiting questions, and job-description fit.
 
-This is not a generic chatbot demo. It is a small agentic interface for a portfolio: a recruiter can ask about experience, paste a job description, or explore project depth, and the assistant responds with grounded answers from a curated system profile.
+This is not a generic chat demo. It is a focused portfolio interface: a recruiter can ask about experience, paste a job description, or explore project depth, and the assistant responds with grounded answers from a curated system profile.
 
 ## What It Does
 
