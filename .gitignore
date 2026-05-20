@@ -19,7 +19,3 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-
-.codex
-CLAUDE.md
-FRONTEND_CLAUDE.md
