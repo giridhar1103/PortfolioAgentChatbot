@@ -1,5 +1,5 @@
 [Unit]
-Description=Chatbot FastAPI - Giridhar portfolio chatbot
+Description=Portfolio Agent Chatbot FastAPI service
 After=network.target
 
 [Service]
