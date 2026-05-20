@@ -113,14 +113,3 @@ http://127.0.0.1:8002/health
     ├── ARCHITECTURE.md
     └── DEPLOYMENT.md
 ```
-
-## Production Status
-
-The running VPS deployment uses:
-
-- Uvicorn on `127.0.0.1:8002`.
-- systemd unit `chatbot-api.service`.
-- Nginx route `https://your-api-domain.com/chatbot/`.
-- CORS limited to the production portfolio domains.
-
-`chatbot.env`, virtual environments, caches, and secrets are intentionally excluded from GitHub.
