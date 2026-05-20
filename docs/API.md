@@ -7,7 +7,7 @@ The chatbot exposes a small HTTP API designed for a browser chat widget. The cha
 Production:
 
 ```text
-https://api.giriworks.com/chatbot
+https://your-api-domain.com/chatbot
 ```
 
 Local:
@@ -44,7 +44,7 @@ Request body:
   "messages": [
     {
       "role": "user",
-      "content": "Tell me about Giridhar's data engineering work."
+      "content": "Tell me about this person's project experience."
     }
   ]
 }
@@ -55,7 +55,7 @@ The final message must use the `user` role. The backend trims the conversation t
 Streaming response:
 
 ```text
-data: {"text":"Giridhar has worked on"}
+data: {"text":"They have worked on"}
 data: {"text":" cloud data pipelines..."}
 data: [DONE]
 ```
@@ -71,7 +71,7 @@ data: {"error":"..."}
 Use `fetch` with `ReadableStream`. Do not use `EventSource`, since the request is a `POST`.
 
 ```ts
-const response = await fetch("https://api.giriworks.com/chatbot/chat", {
+const response = await fetch("https://your-api-domain.com/chatbot/chat", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ messages }),
