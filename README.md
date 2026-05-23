@@ -1,5 +1,9 @@
 # Portfolio Agent Chatbot
 
+<p align="center">
+  <img src="images/chatbot-icon.png" alt="Portfolio Agent Chatbot cover" width="720" />
+</p>
+
 A production-ready portfolio assistant template for a personal website. It is built as a lean FastAPI service that streams Claude responses into a frontend chat widget and keeps the conversation focused on professional background, projects, skills, recruiting questions, and job-description fit.
 
 This is not a generic chat demo. It is a focused portfolio interface: a recruiter can ask about experience, paste a job description, or explore project depth, and the assistant responds with grounded answers from a curated system profile.
